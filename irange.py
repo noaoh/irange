@@ -15,23 +15,31 @@ class irange:
             self.stop = args[0]
             self.step = 1
 
+        self.reverse = self.start > self.stop
+
     def __iter__(self):
-        return irange_iter(self.start, self.stop, self.step)
+        return irange_iter(self.start, self.stop, self.step, self.reverse)
 
 
 class irange_iter:
-    def __init__(self, start, stop, step):
+    def __init__(self, start, stop, step, reverse):
         self.start = start
         self.stop = stop
         self.step = step
+        self.reverse = reverse
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        if self.start <= self.stop:
+        if not self.reverse and self.start <= self.stop:
             old_start = self.start
             self.start += self.step
+            return old_start
+
+        elif self.reverse and self.start >= self.stop:
+            old_start = self.start
+            self.start -= self.step
             return old_start
 
         else:
