@@ -1,5 +1,21 @@
 class irange:
     def __init__(self, *args):
+        if len(args) == 0:
+            raise TypeError("irange expected 1 arguments, got 0")
+
+        elif len(args) > 3:
+            raise TypeError(
+                "irange expected at most 3 arguments got {l}"
+                .format(l=len(args))
+            )
+
+        for x in args:
+            if type(x) != int:
+                raise TypeError(
+                    "'{type_name}' object cannot be interpreted as an integer"
+                    .format(type_name=type(x).__name__)
+                )
+
         start_stop_and_step = len(args) == 3
         start_and_stop = len(args) == 2
         just_stop = len(args) == 1
@@ -19,33 +35,25 @@ class irange:
             self.stop = args[0]
             self.step = 1
 
-        self.reverse = self.start > self.stop
+        if self.step == 0:
+            raise ValueError("irange() arg 3 must not be zero")
+
 
     def __iter__(self):
-        return irange_iter(self.start, self.stop, self.step, self.reverse)
+        no_values = None
 
+        if self.start == self.stop:
+            return no_values
 
-class irange_iter:
-    def __init__(self, start, stop, step, reverse):
-        self.start = start
-        self.stop = stop
-        self.step = step
-        self.reverse = reverse
+        if self.start > self.stop and self.step > 0:
+            return no_values
 
-    def __iter__(self):
-        return self
+        elif self.start < self.stop and self.step < 0:
+            return no_values
 
-    def __next__(self):
-        if not self.reverse and self.start <= self.stop:
-            old_start = self.start
+        while self.start != self.stop:
+            yield self.start
             self.start += self.step
-            return old_start
 
-        elif self.reverse and self.start >= self.stop:
-            old_start = self.start
-            self.start -= self.step
-            return old_start
-
-        else:
-            raise StopIteration()
+        yield self.stop
 
