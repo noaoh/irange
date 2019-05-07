@@ -1,16 +1,20 @@
 class irange:
     def __init__(self, *args):
-        if len(args) == 3:
+        start_stop_and_step = len(args) == 3
+        start_and_stop = len(args) == 2
+        just_stop = len(args) == 1
+
+        if start_stop_and_step:
             self.start = args[0]
             self.stop = args[1]
             self.step = args[2]
 
-        elif len(args) == 2:
+        elif start_and_stop:
             self.start = args[0]
             self.stop = args[1]
             self.step = 1
 
-        else:
+        elif just_stop:
             self.start = 0
             self.stop = args[0]
             self.step = 1
