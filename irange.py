@@ -24,6 +24,8 @@ class irange:
             self.start = args[0]
             self.stop = args[1]
             self.step = args[2]
+            if self.step == 0:
+                raise ValueError("irange() arg 3 must not be zero")
 
         elif start_and_stop:
             self.start = args[0]
@@ -34,9 +36,6 @@ class irange:
             self.start = 0
             self.stop = args[0]
             self.step = 1
-
-        if self.step == 0:
-            raise ValueError("irange() arg 3 must not be zero")
 
 
     def __iter__(self):
