@@ -45,6 +45,15 @@ class NoValuesTestCase(unittest.TestCase):
         self.assertEqual(list(irange(6, 2)), [])
         self.assertEqual(list(irange(1, 3, -1)), [])
 
+
+class RepresentationTestCase(unittest.TestCase):
+    def test(self):
+        self.assertEqual(repr(irange(10)), 'irange(0, 10)')
+        self.assertEqual(repr(irange(2, 9)), 'irange(2, 9)')
+        self.assertEqual(repr(irange(1, 5, 2)), 'irange(1, 5, 2)')
+        self.assertEqual(repr(irange(5, 1, -2)), 'irange(5, 1, -2)')
+
+
 def main():
     unittest.main()
 

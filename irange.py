@@ -56,3 +56,16 @@ class irange:
 
         yield self.stop
 
+
+    def __repr__(self):
+        if self.step == 1:
+            return (
+                'irange({start}, {stop})'
+                .format(start=self.start, stop=self.stop)
+            )
+
+        else:
+            return (
+                'irange({start}, {stop}, {step})'
+                .format(start=self.start, stop=self.stop, step=self.step)
+            )
