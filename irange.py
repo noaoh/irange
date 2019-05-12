@@ -74,3 +74,8 @@ class irange:
                 'irange({start}, {stop}, {step})'
                 .format(start=self.start, stop=self.stop, step=self.step)
             )
+
+    def __bool__(self):
+        return not ((self.start == self.stop) or
+                    (self.start > self.stop and self.step > 0) or
+                    (self.start < self.stop and self.step < 0))

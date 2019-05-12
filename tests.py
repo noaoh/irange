@@ -60,6 +60,20 @@ class RepresentationTestCase(unittest.TestCase):
         self.assertEqual(repr(irange(5, 1, -2)), 'irange(5, 1, -2)')
 
 
+class TrueBoolTestCase(unittest.TestCase):
+    def test(self):
+        self.assertTrue(bool(irange(5)))
+        self.assertTrue(bool(irange(0, 4)))
+        self.assertTrue(bool(irange(0, 6, 2)))
+        self.assertTrue(bool(irange(4, 0, -1)))
+
+
+class FalseBoolTestCase(unittest.TestCase):
+    def test(self):
+        self.assertFalse(bool(irange(5, 5)))
+        self.assertFalse(bool(irange(6, 2)))
+        self.assertFalse(bool(irange(1, 3, -1)))
+
 def main():
     unittest.main()
 
