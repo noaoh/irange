@@ -40,13 +40,7 @@ class irange:
     def __iter__(self):
         no_values = None
 
-        if self.start == self.stop:
-            return no_values
-
-        if self.start > self.stop and self.step > 0:
-            return no_values
-
-        elif self.start < self.stop and self.step < 0:
+        if not bool(self):
             return no_values
 
         if self.start > self.stop:
@@ -79,3 +73,4 @@ class irange:
         return not ((self.start == self.stop) or
                     (self.start > self.stop and self.step > 0) or
                     (self.start < self.stop and self.step < 0))
+

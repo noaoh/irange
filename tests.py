@@ -74,6 +74,7 @@ class FalseBoolTestCase(unittest.TestCase):
         self.assertFalse(bool(irange(6, 2)))
         self.assertFalse(bool(irange(1, 3, -1)))
 
+
 def main():
     unittest.main()
 
