@@ -37,7 +37,6 @@ class irange:
             self.stop = args[0]
             self.step = 1
 
-
     def __iter__(self):
         no_values = None
 
@@ -62,7 +61,6 @@ class irange:
 
         if abs(self.stop - self.start) % abs(self.step) == 0:
             yield self.stop
-
 
     def __repr__(self):
         if self.step == 1:
