@@ -50,11 +50,18 @@ class irange:
         elif self.start < self.stop and self.step < 0:
             return no_values
 
-        while self.start != self.stop:
-            yield self.start
-            self.start += self.step
+        if self.start > self.stop:
+            while self.start > self.stop:
+                yield self.start
+                self.start += self.step
 
-        yield self.stop
+        elif self.start < self.stop:
+            while self.start < self.stop:
+                yield self.start
+                self.start += self.step
+
+        if abs(self.stop - self.start) % abs(self.step) == 0:
+            yield self.stop
 
 
     def __repr__(self):

@@ -32,11 +32,17 @@ class StartUpToEndTestCase(unittest.TestCase):
         self.assertEqual(list(irange(5)), [0, 1, 2, 3, 4, 5])
         self.assertEqual(list(irange(0, 4)), [0, 1, 2, 3, 4])
         self.assertEqual(list(irange(0, 6, 2)), [0, 2, 4, 6])
+        self.assertEqual(list(irange(1, 10, 4)), [1, 5, 9])
+        self.assertEqual(list(irange(-1, 3)), [-1, 0, 1, 2, 3])
+        self.assertEqual(list(irange(-5, 0, 2)), [-5, -3, -1])
 
 
 class StartDownToEndTestCase(unittest.TestCase):
     def test(self):
         self.assertEqual(list(irange(4, 0, -1)), [4, 3, 2, 1, 0])
+        self.assertEqual(list(irange(10, 1, -4)), [10, 6, 2])
+        self.assertEqual(list(irange(5, -2, -1)), [5, 4, 3, 2, 1, 0, -1, -2])
+        self.assertEqual(list(irange(5, 0, -2)), [5, 3, 1])
 
 
 class NoValuesTestCase(unittest.TestCase):
