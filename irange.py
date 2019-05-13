@@ -43,15 +43,16 @@ class irange:
         if not bool(self):
             return no_values
 
+        value = self.start
         if self.start > self.stop:
-            while self.start > self.stop:
-                yield self.start
-                self.start += self.step
+            while value > self.stop:
+                yield value
+                value += self.step
 
         elif self.start < self.stop:
-            while self.start < self.stop:
-                yield self.start
-                self.start += self.step
+            while value < self.stop:
+                yield value
+                value += self.step
 
         if abs(self.stop - self.start) % abs(self.step) == 0:
             yield self.stop

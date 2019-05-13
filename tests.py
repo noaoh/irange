@@ -58,7 +58,9 @@ class RepresentationTestCase(unittest.TestCase):
         self.assertEqual(repr(irange(2, 9)), 'irange(2, 9)')
         self.assertEqual(repr(irange(1, 5, 2)), 'irange(1, 5, 2)')
         self.assertEqual(repr(irange(5, 1, -2)), 'irange(5, 1, -2)')
-
+        z = irange(1, 10, 2)
+        x = [*z]
+        self.assertEqual(repr(z), 'irange(1, 10, 2)')
 
 class TrueBoolTestCase(unittest.TestCase):
     def test(self):
