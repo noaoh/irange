@@ -54,7 +54,7 @@ class irange:
                 yield value
                 value += self.step
 
-        if abs(self.stop - self.start) % abs(self.step) == 0:
+        if self.stop in self:
             yield self.stop
 
     def __repr__(self):
@@ -85,10 +85,7 @@ class irange:
             abs_step = abs(self.step)
 
             step_is_one = self.step == 1
-            inclusive = (
-                self.stop == 0 or self.start == 0
-                or abs(self.stop - self.start) % abs(self.step) == 0
-            )
+            inclusive = self.stop == 0 or self.start == 0 or self.stop in self
 
             if not step_is_one and inclusive:
                 return int((abs_stop + abs_start)/abs_step) - 1
@@ -110,10 +107,7 @@ class irange:
 
             abs_step = abs(self.step)
             step_is_one = self.step == 1
-            inclusive = (
-                self.stop == 0 or self.start == 0
-                or abs(self.stop - self.start) % abs(self.step) == 0
-            )
+            inclusive = self.stop == 0 or self.start == 0 or self.stop in self
 
             if not step_is_one and inclusive:
                 return int((highest - lowest)/abs_step) + 1
@@ -123,3 +117,9 @@ class irange:
 
             else:
                 return highest - lowest + 1
+
+    def __contains__(self, value):
+        if not bool(self):
+            return False
+
+        return abs(value - self.start) % abs(self.step) == 0

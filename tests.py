@@ -92,6 +92,20 @@ class LengthTestCase(unittest.TestCase):
                          len(list(irange(-2, -10, -2))))
 
 
+class ContainsTestCase(unittest.TestCase):
+    def test(self):
+        self.assertTrue(5 in irange(5))
+        self.assertTrue(0 in irange(5))
+        self.assertTrue(8 in irange(2, 10))
+        self.assertTrue(9 in irange(1, 10, 4))
+        self.assertTrue(-1 in irange(-5, 0, 2))
+        self.assertTrue(-4 in irange(-6, -2, 2))
+        self.assertFalse(0 in irange(-5, 0, 2))
+        self.assertFalse(10 in irange(1, 10, 4))
+        self.assertFalse(5 in irange(5, 5))
+        self.assertFalse(-6 in irange(-2, -6, -3))
+
+
 def main():
     unittest.main()
 
