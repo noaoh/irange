@@ -123,3 +123,17 @@ class irange:
             return False
 
         return abs(value - self.start) % abs(self.step) == 0
+
+    def __getitem__(self, index):
+        if index > len(self) or abs(index) > (len(self) + 1):
+            raise IndexError("irange object index out of range")
+
+        if index >= 0:
+            return self.start + self.step * index
+
+        elif self.stop not in self:
+            real_stop = self.start + self.step * (len(self) - 1)
+            return real_stop - self.step * index
+
+        else:
+            return self.stop - self.step * index
