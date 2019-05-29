@@ -75,3 +75,51 @@ class irange:
                     (self.start > self.stop and self.step > 0) or
                     (self.start < self.stop and self.step < 0))
 
+    def __len__(self):
+        if not bool(self):
+            return 0
+
+        elif self.start < 0 or self.stop < 0:
+            abs_start = abs(self.start)
+            abs_stop = abs(self.stop)
+            abs_step = abs(self.step)
+
+            step_is_one = self.step == 1
+            inclusive = (
+                self.stop == 0 or self.start == 0
+                or abs(self.stop - self.start) % abs(self.step) == 0
+            )
+
+            if not step_is_one and inclusive:
+                return int((abs_stop + abs_start)/abs_step) - 1
+
+            elif not step_is_one:
+                return int((abs_stop + abs_start)/abs_step)
+
+            else:
+                return abs_stop + abs_start + 1
+
+        else:
+            if self.stop < self.start:
+                lowest = self.stop
+                highest = self.start
+
+            else:
+                lowest = self.start
+                highest = self.stop
+
+            abs_step = abs(self.step)
+            step_is_one = self.step == 1
+            inclusive = (
+                self.stop == 0 or self.start == 0
+                or abs(self.stop - self.start) % abs(self.step) == 0
+            )
+
+            if not step_is_one and inclusive:
+                return int((highest - lowest)/abs_step) + 1
+
+            elif not step_is_one:
+                return int((highest - lowest)/abs_step)
+
+            else:
+                return highest - lowest + 1

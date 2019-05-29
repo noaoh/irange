@@ -62,6 +62,7 @@ class RepresentationTestCase(unittest.TestCase):
         x = [*z]
         self.assertEqual(repr(z), 'irange(1, 10, 2)')
 
+
 class TrueBoolTestCase(unittest.TestCase):
     def test(self):
         self.assertTrue(bool(irange(5)))
@@ -75,6 +76,20 @@ class FalseBoolTestCase(unittest.TestCase):
         self.assertFalse(bool(irange(5, 5)))
         self.assertFalse(bool(irange(6, 2)))
         self.assertFalse(bool(irange(1, 3, -1)))
+
+
+class LengthTestCase(unittest.TestCase):
+    def test(self):
+        self.assertEqual(len(irange(5)), len(list(irange(5))))
+        self.assertEqual(len(irange(2, 6)), len(list(irange(2, 6))))
+        self.assertEqual(len(irange(-2, 5)), len(list(irange(-2, 5))))
+        self.assertEqual(len(irange(2, 10, 2)), len(list(irange(2, 10, 2))))
+        self.assertEqual(len(irange(5, 0, -2)), len(list(irange(5, 0, -2))))
+        self.assertEqual(len(irange(-2, -6, -3)),
+                         len(list(irange(-2, -6, -3))))
+        self.assertEqual(len(irange(0, 7, 2)), len(list(irange(0, 7, 2))))
+        self.assertEqual(len(irange(-2, -10, -2)),
+                         len(list(irange(-2, -10, -2))))
 
 
 def main():
