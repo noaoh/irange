@@ -126,6 +126,19 @@ class GetItem(unittest.TestCase):
         self.assertEqual(irange(-2, -8, -2)[-2], list(irange(-2, -8, -2))[-2])
 
 
+class ReversedTestCase(unittest.TestCase):
+    def test(self):
+        reverse_irange = lambda x: list(reversed(x))
+        reverse_list = lambda x: list(reversed(list(x)))
+        self.assertEqual(reverse_irange(irange(10)), reverse_list(irange(10)))
+        self.assertEqual(reverse_irange(irange(2, 6)), reverse_list(irange(2, 6)))
+        self.assertEqual(reverse_irange(irange(2, 8, 2)), reverse_list(irange(2, 8, 2)))
+        self.assertEqual(reverse_irange(irange(-2, 10, 2)), reverse_list(irange(-2, 10, 2)))
+        self.assertEqual(reverse_irange(irange(5, 0, -2)), reverse_list(irange(5, 0, -2)))
+        self.assertEqual(reverse_irange(irange(0, 7, 2)), reverse_list(irange(0, 7, 2)))
+        self.assertEqual(reverse_irange(irange(2, -10, -2)), reverse_list(irange(2, -10, -2)))
+        self.assertEqual(reverse_irange(irange(-2, -8, -2)), reverse_list(irange(-2, -8, -2)))
+
 def main():
     unittest.main()
 

@@ -155,4 +155,10 @@ class irange:
             else:
                 return self.start + self.step * index
 
+    def __reversed__(self):
+        if self.stop not in self:
+            real_stop = self.start + self.step * (len(self) - 1)
+            return irange(real_stop, self.start, -self.step)
 
+        else:
+            return irange(self.stop, self.start, -self.step)
