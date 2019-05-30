@@ -174,3 +174,6 @@ class irange:
             raise ValueError("{v} is not in range".format(v=value))
 
         return int((value - self.start)/(self.step))
+
+    def count(self, value):
+        return 1 if value in self else 0
