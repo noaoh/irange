@@ -104,6 +104,8 @@ class ContainsTestCase(unittest.TestCase):
         self.assertFalse(10 in irange(1, 10, 4))
         self.assertFalse(5 in irange(5, 5))
         self.assertFalse(-6 in irange(-2, -6, -3))
+        self.assertFalse(11 in irange(1, 10))
+        self.assertFalse(-1 in irange(1, 10))
 
 
 class GetItem(unittest.TestCase):
@@ -128,16 +130,48 @@ class GetItem(unittest.TestCase):
 
 class ReversedTestCase(unittest.TestCase):
     def test(self):
-        reverse_irange = lambda x: list(reversed(x))
-        reverse_list = lambda x: list(reversed(list(x)))
+        def reverse_irange(x): return list(reversed(x))
+        def reverse_list(x): return list(reversed(list(x)))
         self.assertEqual(reverse_irange(irange(10)), reverse_list(irange(10)))
-        self.assertEqual(reverse_irange(irange(2, 6)), reverse_list(irange(2, 6)))
-        self.assertEqual(reverse_irange(irange(2, 8, 2)), reverse_list(irange(2, 8, 2)))
-        self.assertEqual(reverse_irange(irange(-2, 10, 2)), reverse_list(irange(-2, 10, 2)))
-        self.assertEqual(reverse_irange(irange(5, 0, -2)), reverse_list(irange(5, 0, -2)))
-        self.assertEqual(reverse_irange(irange(0, 7, 2)), reverse_list(irange(0, 7, 2)))
-        self.assertEqual(reverse_irange(irange(2, -10, -2)), reverse_list(irange(2, -10, -2)))
-        self.assertEqual(reverse_irange(irange(-2, -8, -2)), reverse_list(irange(-2, -8, -2)))
+        self.assertEqual(reverse_irange(irange(2, 6)),
+                         reverse_list(irange(2, 6)))
+        self.assertEqual(reverse_irange(irange(2, 8, 2)),
+                         reverse_list(irange(2, 8, 2)))
+        self.assertEqual(reverse_irange(irange(-2, 10, 2)),
+                         reverse_list(irange(-2, 10, 2)))
+        self.assertEqual(reverse_irange(irange(5, 0, -2)),
+                         reverse_list(irange(5, 0, -2)))
+        self.assertEqual(reverse_irange(irange(0, 7, 2)),
+                         reverse_list(irange(0, 7, 2)))
+        self.assertEqual(reverse_irange(irange(2, -10, -2)),
+                         reverse_list(irange(2, -10, -2)))
+        self.assertEqual(reverse_irange(irange(-2, -8, -2)),
+                         reverse_list(irange(-2, -8, -2)))
+
+
+class IndexTestCase(unittest.TestCase):
+    def test(self):
+        with self.assertRaises(ValueError):
+            irange(1, 10).index(11)
+
+        with self.assertRaises(ValueError):
+            irange(1, 10).index(0)
+
+        self.assertEqual(irange(10).index(10), list(irange(10)).index(10))
+        self.assertEqual(irange(2, 6).index(3), list(irange(2, 6)).index(3))
+        self.assertEqual(irange(2, 8, 2).index(
+            6), list(irange(2, 8, 2)).index(6))
+        self.assertEqual(irange(-2, 10, 2).index(0),
+                         list(irange(-2, 10, 2)).index(0))
+        self.assertEqual(irange(5, 0, -2).index(5),
+                         list(irange(5, 0, -2)).index(5))
+        self.assertEqual(irange(0, 7, 2).index(
+            6), list(irange(0, 7, 2)).index(6))
+        self.assertEqual(irange(2, -10, -2).index(0),
+                         list(irange(2, -10, -2)).index(0))
+        self.assertEqual(irange(-2, -8, -2).index(-4),
+                         list(irange(-2, -8, -2)).index(-4))
+
 
 def main():
     unittest.main()

@@ -1,5 +1,6 @@
 import pdb
 
+
 class irange:
     def __init__(self, *args):
         if len(args) == 0:
@@ -124,7 +125,12 @@ class irange:
         if not bool(self):
             return False
 
-        return abs(value - self.start) % abs(self.step) == 0
+        in_step = abs(value - self.start) % abs(self.step) == 0
+        in_between = (
+            (value >= self.start and value <= self.stop) or
+            (value <= self.start and value >= self.stop)
+        )
+        return in_step and in_between
 
     def __getitem__(self, index):
         contains_stop = self.stop in self
@@ -162,3 +168,9 @@ class irange:
 
         else:
             return irange(self.stop, self.start, -self.step)
+
+    def index(self, value):
+        if value not in self:
+            raise ValueError("{v} is not in range".format(v=value))
+
+        return int((value - self.start)/(self.step))
