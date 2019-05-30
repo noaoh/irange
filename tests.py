@@ -106,6 +106,26 @@ class ContainsTestCase(unittest.TestCase):
         self.assertFalse(-6 in irange(-2, -6, -3))
 
 
+class GetItem(unittest.TestCase):
+    def test(self):
+        with self.assertRaises(IndexError):
+            irange(1, 10)[11]
+
+        with self.assertRaises(IndexError):
+            irange(1, 10)[-12]
+
+        self.assertEqual(irange(10)[0], list(irange(10))[0])
+        self.assertEqual(irange(10)[10], list(irange(10))[10])
+        self.assertEqual(irange(10)[-2], list(irange(10))[-2])
+        self.assertEqual(irange(2, 6)[3], list(irange(2, 6))[3])
+        self.assertEqual(irange(-2, 10, 2)[3], list(irange(-2, 10, 2))[3])
+        self.assertEqual(irange(5, 0, -2)[1], list(irange(5, 0, -2))[1])
+        self.assertEqual(irange(5, 0, -2)[-2], list(irange(5, 0, -2))[-2])
+        self.assertEqual(irange(0, 7, 2)[-1], list(irange(0, 7, 2))[-1])
+        self.assertEqual(irange(-2, -10, -2)[3], list(irange(-2, -10, -2))[3])
+        self.assertEqual(irange(-2, -8, -2)[-2], list(irange(-2, -8, -2))[-2])
+
+
 def main():
     unittest.main()
 

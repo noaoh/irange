@@ -1,3 +1,5 @@
+import pdb
+
 class irange:
     def __init__(self, *args):
         if len(args) == 0:
@@ -125,15 +127,32 @@ class irange:
         return abs(value - self.start) % abs(self.step) == 0
 
     def __getitem__(self, index):
+        contains_stop = self.stop in self
+        negative_index = index < 0
+
         if index > len(self) or abs(index) > (len(self) + 1):
             raise IndexError("irange object index out of range")
 
-        if index >= 0:
-            return self.start + self.step * index
-
-        elif self.stop not in self:
+        elif not contains_stop and negative_index:
             real_stop = self.start + self.step * (len(self) - 1)
-            return real_stop - self.step * index
+            if self.stop < self.start:
+                return real_stop + self.step * (index + 1)
+
+            else:
+                return real_stop - abs(self.step * (index + 1))
+
+        elif negative_index:
+            if self.stop < self.start:
+                return self.stop + self.step * (index + 1)
+
+            else:
+                return self.stop - abs(self.step * (index + 1))
 
         else:
-            return self.stop - self.step * index
+            if self.stop < self.start:
+                return self.start - abs(self.step * index)
+
+            else:
+                return self.start + self.step * index
+
+
